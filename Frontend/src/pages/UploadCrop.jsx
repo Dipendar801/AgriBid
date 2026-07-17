@@ -5,7 +5,7 @@ function UploadCrop() {
   const [cropName, setCropName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [basePrice, setBasePrice] = useState("");
-
+  const [location, setLocation] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -13,12 +13,13 @@ function UploadCrop() {
       const token = localStorage.getItem("token");
 
       const response = await api.post(
-       "/api/crops/add",
-        {
-          cropName,
-          quantity,
-          basePrice,
-        },
+  "/api/crops/add",
+  {
+    cropName,
+    quantity,
+    basePrice,
+    location,
+  },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -67,9 +68,16 @@ function UploadCrop() {
           value={basePrice}
           onChange={(e) => setBasePrice(e.target.value)}
         />
-
+        
         <br /><br />
+         <input
+  type="text"
+  placeholder="Location"
+  value={location}
+  onChange={(e) => setLocation(e.target.value)}
+/>
 
+<br /><br />
         <button type="submit">
           Upload Crop
         </button>
