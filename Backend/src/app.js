@@ -4,7 +4,10 @@ const cors = require("cors");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: "https://agri-bid-five.vercel.app",
+    credentials: true
+}));
 
 app.use(express.json());
 
