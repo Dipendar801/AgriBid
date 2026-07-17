@@ -15,7 +15,7 @@ function Dashboard() {
 
   const fetchMyCrops = async () => {
     try {
-      const res = await api.get("/api/crops/my-crops", {
+      const res = await api.get("/crops/my-crops", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

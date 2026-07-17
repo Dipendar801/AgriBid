@@ -27,7 +27,7 @@ function BuyerDashboard() {
 
   const fetchAuctions = async () => {
     try {
-      const res = await api.get("/api/bids/live");
+      const res = await api.get("/bids/live");
       setAuctions(res.data.data);
     } catch (error) {
       console.log(error);
@@ -47,7 +47,7 @@ function BuyerDashboard() {
   const handleBid = async (auctionId) => {
     try {
       await api.post(
-        "/api/bids/place",
+        "/bids/place",
         {
           auctionId,
           bidAmount: Number(bidAmounts[auctionId]),

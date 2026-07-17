@@ -13,18 +13,18 @@ function UploadCrop() {
       const token = localStorage.getItem("token");
 
       const response = await api.post(
-  "/api/crops/add",
-  {
-    cropName,
-    quantity,
-    basePrice,
-    location,
-  },
+        "/crops/add",
+        {
+          cropName,
+          quantity,
+          basePrice,
+          location,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       alert(response.data.message);
@@ -32,7 +32,6 @@ function UploadCrop() {
       setCropName("");
       setQuantity("");
       setBasePrice("");
-
     } catch (error) {
       alert(error.response?.data?.message || "Something went wrong");
     }
@@ -43,7 +42,6 @@ function UploadCrop() {
       <h1>Upload Crop 🌾</h1>
 
       <form onSubmit={handleSubmit}>
-
         <input
           type="text"
           placeholder="Crop Name"
@@ -51,7 +49,8 @@ function UploadCrop() {
           onChange={(e) => setCropName(e.target.value)}
         />
 
-        <br /><br />
+        <br />
+        <br />
 
         <input
           type="number"
@@ -60,7 +59,8 @@ function UploadCrop() {
           onChange={(e) => setQuantity(e.target.value)}
         />
 
-        <br /><br />
+        <br />
+        <br />
 
         <input
           type="number"
@@ -68,20 +68,19 @@ function UploadCrop() {
           value={basePrice}
           onChange={(e) => setBasePrice(e.target.value)}
         />
-        
-        <br /><br />
-         <input
-  type="text"
-  placeholder="Location"
-  value={location}
-  onChange={(e) => setLocation(e.target.value)}
-/>
 
-<br /><br />
-        <button type="submit">
-          Upload Crop
-        </button>
+        <br />
+        <br />
+        <input
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
 
+        <br />
+        <br />
+        <button type="submit">Upload Crop</button>
       </form>
     </div>
   );

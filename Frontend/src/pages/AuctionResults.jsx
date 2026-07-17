@@ -9,7 +9,7 @@ function AuctionResults() {
 
   const fetchResults = async () => {
     try {
-      const res = await api.get("/api/auctions/results", {
+      const res = await api.get("/auctions/results", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
