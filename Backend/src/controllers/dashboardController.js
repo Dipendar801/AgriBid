@@ -1,5 +1,5 @@
-const Crop = require("../models/Crop");
-const Auction = require("../models/Auction");
+const Crop = require("../models/crop");
+const Auction = require("../models/auction");
 
 const farmerDashboard = async (req, res) => {
   try {

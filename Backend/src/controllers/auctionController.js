@@ -1,5 +1,5 @@
-const Auction = require("../models/Auction");
-const Crop = require("../models/Crop");
+const Auction = require("../models/auction");
+const Crop = require("../models/crop");
 const createAuction = async (req, res) => {
   try {
     const { crop, startPrice } = req.body;

@@ -1,5 +1,5 @@
 const Bid = require("../models/Bid");
-const Auction = require("../models/Auction");
+const Auction = require("../models/auction");
 
 // ===================== Place Bid =====================
 
