@@ -13,7 +13,7 @@ function UploadCrop() {
       const token = localStorage.getItem("token");
 
       const response = await api.post(
-        "/crops",
+       "/api/crops/add",
         {
           cropName,
           quantity,
