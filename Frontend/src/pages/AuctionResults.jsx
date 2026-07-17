@@ -9,14 +9,13 @@ function AuctionResults() {
 
   const fetchResults = async () => {
     try {
-      const res = await api.get("/auctions/results", {
+      const res = await api.get("/api/auctions/results", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       setAuctions(res.data.data);
-
     } catch (error) {
       console.log(error);
     }
@@ -28,12 +27,8 @@ function AuctionResults() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
-
       <div className="flex justify-between items-center mb-8">
-
-        <h1 className="text-4xl font-bold">
-          🏆 Auction Results
-        </h1>
+        <h1 className="text-4xl font-bold">🏆 Auction Results</h1>
 
         <Link
           to="/dashboard"
@@ -41,37 +36,21 @@ function AuctionResults() {
         >
           Dashboard
         </Link>
-
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
-
         {auctions.map((auction) => (
-
-          <div
-            key={auction._id}
-            className="bg-white rounded-xl shadow-lg p-5"
-          >
-
+          <div key={auction._id} className="bg-white rounded-xl shadow-lg p-5">
             <img
-              src={
-                auction.crop.image ||
-                "https://via.placeholder.com/300"
-              }
+              src={auction.crop.image || "https://via.placeholder.com/300"}
               className="w-full h-48 object-cover rounded-lg"
               alt={auction.crop.cropName}
             />
 
-            <h2 className="text-2xl font-bold mt-4">
-              {auction.crop.cropName}
-            </h2>
+            <h2 className="text-2xl font-bold mt-4">{auction.crop.cropName}</h2>
 
             <p className="mt-2">
-              Highest Bid :
-              <strong>
-                {" "}
-                ₹{auction.currentHighestBid}
-              </strong>
+              Highest Bid :<strong> ₹{auction.currentHighestBid}</strong>
             </p>
 
             <p>
@@ -83,13 +62,9 @@ function AuctionResults() {
                   : "No Winner"}
               </strong>
             </p>
-
           </div>
-
         ))}
-
       </div>
-
     </div>
   );
 }

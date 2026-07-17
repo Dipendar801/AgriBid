@@ -27,7 +27,7 @@ function BuyerDashboard() {
 
   const fetchAuctions = async () => {
     try {
-      const res = await api.get("/bids/live");
+      const res = await api.get("/api/bids/live");
       setAuctions(res.data.data);
     } catch (error) {
       console.log(error);
@@ -47,7 +47,7 @@ function BuyerDashboard() {
   const handleBid = async (auctionId) => {
     try {
       await api.post(
-        "/bids/place",
+        "/api/bids/place",
         {
           auctionId,
           bidAmount: Number(bidAmounts[auctionId]),
@@ -56,13 +56,12 @@ function BuyerDashboard() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       alert("✅ Bid Placed Successfully");
 
       fetchAuctions();
-
     } catch (error) {
       alert(error.response?.data?.message || "Failed");
     }
@@ -74,164 +73,102 @@ function BuyerDashboard() {
   };
 
   return (
-  <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50">
+      {/* Navbar */}
 
-    {/* Navbar */}
+      <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-8 py-5 flex justify-between items-center">
+          {/* Logo */}
 
-    <div className="bg-white border-b border-gray-200 shadow-sm">
-
-      <div className="max-w-7xl mx-auto px-8 py-5 flex justify-between items-center">
-
-        {/* Logo */}
-
-        <div className="flex items-center gap-4">
-
-          <div className="bg-green-700 w-14 h-14 rounded-2xl flex justify-center items-center shadow">
-
-            <FaLeaf
-              className="text-white"
-              size={26}
-            />
-
-          </div>
-
-          <div>
-
-            <h1 className="text-3xl font-bold text-green-700">
-              AgriBid
-            </h1>
-
-            <p className="text-gray-500">
-              Smart Agriculture Bidding Platform
-            </p>
-
-          </div>
-
-        </div>
-
-        {/* User */}
-
-        <div className="flex items-center gap-6">
-
-          <div className="flex items-center gap-3">
-
-            <FaUserCircle
-              className="text-green-700"
-              size={42}
-            />
-
-            <div>
-
-              <h2 className="font-bold text-gray-800">
-                {user?.fullName}
-              </h2>
-
-              <p className="text-gray-500 capitalize">
-                {user?.role}
-              </p>
-
+          <div className="flex items-center gap-4">
+            <div className="bg-green-700 w-14 h-14 rounded-2xl flex justify-center items-center shadow">
+              <FaLeaf className="text-white" size={26} />
             </div>
 
+            <div>
+              <h1 className="text-3xl font-bold text-green-700">AgriBid</h1>
+
+              <p className="text-gray-500">
+                Smart Agriculture Bidding Platform
+              </p>
+            </div>
           </div>
 
-          <button
-            onClick={logout}
-            className="bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-2xl font-semibold flex items-center gap-2 transition-all duration-300"
-          >
+          {/* User */}
 
-            <FaSignOutAlt />
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3">
+              <FaUserCircle className="text-green-700" size={42} />
 
-            Logout
+              <div>
+                <h2 className="font-bold text-gray-800">{user?.fullName}</h2>
 
-          </button>
+                <p className="text-gray-500 capitalize">{user?.role}</p>
+              </div>
+            </div>
 
+            <button
+              onClick={logout}
+              className="bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-2xl font-semibold flex items-center gap-2 transition-all duration-300"
+            >
+              <FaSignOutAlt />
+              Logout
+            </button>
+          </div>
         </div>
-
       </div>
 
-    </div>
+      {/* Heading */}
 
-    {/* Heading */}
+      <div className="max-w-7xl mx-auto px-8 py-10">
+        <h1 className="text-4xl font-bold text-gray-800">
+          Welcome,
+          <span className="text-green-700"> {user?.fullName}</span>
+        </h1>
 
-    <div className="max-w-7xl mx-auto px-8 py-10">
+        <p className="text-gray-500 mt-3 text-lg">
+          Browse active crop auctions and place competitive bids on fresh crops
+          from farmers.
+        </p>
+      </div>
 
-      <h1 className="text-4xl font-bold text-gray-800">
+      {/* Cards */}
 
-        Welcome,
-
-        <span className="text-green-700">
-          {" "}
-          {user?.fullName}
-        </span>
-
-      </h1>
-
-      <p className="text-gray-500 mt-3 text-lg">
-
-        Browse active crop auctions and place competitive bids on fresh crops from farmers.
-
-      </p>
-
-    </div>
-
-    {/* Cards */}
-
-    <div className="max-w-7xl mx-auto px-8 pb-12">
-
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
-
+      <div className="max-w-7xl mx-auto px-8 pb-12">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
           {auctions.map((auction) => (
-
             <div
               key={auction._id}
-             className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+              className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
             >
-
               <img
                 src={
-                  auction.crop.image ||
-                  "https://via.placeholder.com/500x300"
+                  auction.crop.image || "https://via.placeholder.com/500x300"
                 }
                 alt={auction.crop.cropName}
                 className="w-full h-56 object-cover"
               />
 
               <div className="p-6">
-
-                <h2 className="text-2xl font-bold">
-                  {auction.crop.cropName}
-                </h2>
+                <h2 className="text-2xl font-bold">{auction.crop.cropName}</h2>
 
                 <div className="mt-5 space-y-4">
-
                   <div className="flex items-center gap-3">
-
                     <FaWeightHanging className="text-green-700" />
 
-                    <span>
-                      {auction.crop.quantity} Kg
-                    </span>
-
+                    <span>{auction.crop.quantity} Kg</span>
                   </div>
 
                   <div className="flex items-center gap-3">
-
                     <FaMapMarkerAlt className="text-green-700" />
 
-                    <span>
-                      {auction.crop.location}
-                    </span>
-
+                    <span>{auction.crop.location}</span>
                   </div>
 
                   <div className="flex items-center gap-3">
-
                     <FaRupeeSign className="text-green-700" />
 
-                    <span className="font-semibold">
-                      Current Highest Bid
-                    </span>
-
+                    <span className="font-semibold">Current Highest Bid</span>
                   </div>
 
                   <h2 className="text-3xl font-bold text-green-700">
@@ -239,19 +176,15 @@ function BuyerDashboard() {
                   </h2>
 
                   <div>
-
-                    <p className="text-gray-500">
-                      Highest Bidder
-                    </p>
+                    <p className="text-gray-500">Highest Bidder</p>
 
                     <h3 className="font-semibold mt-1">
                       {auction.highestBidder
                         ? auction.highestBidder.fullName
                         : "No Bids Yet"}
                     </h3>
-
                   </div>
-                                    <input
+                  <input
                     type="number"
                     placeholder="Enter Your Bid Amount"
                     value={bidAmounts[auction._id] || ""}
@@ -261,7 +194,7 @@ function BuyerDashboard() {
                         [auction._id]: e.target.value,
                       })
                     }
-                   className="w-full border border-gray-300 rounded-2xl p-4 mt-6 outline-none focus:ring-2 focus:ring-green-100 focus:border-green-700 transition"
+                    className="w-full border border-gray-300 rounded-2xl p-4 mt-6 outline-none focus:ring-2 focus:ring-green-100 focus:border-green-700 transition"
                   />
 
                   <button
@@ -271,32 +204,24 @@ function BuyerDashboard() {
                       Number(bidAmounts[auction._id]) <=
                         auction.currentHighestBid
                     }
-                  className="w-full bg-green-700 hover:bg-green-800 disabled:bg-gray-400 text-white py-4 rounded-2xl font-semibold mt-5 flex justify-center items-center gap-2 transition-all duration-300"
+                    className="w-full bg-green-700 hover:bg-green-800 disabled:bg-gray-400 text-white py-4 rounded-2xl font-semibold mt-5 flex justify-center items-center gap-2 transition-all duration-300"
                   >
                     <FaGavel />
                     Place Bid
                   </button>
 
                   <button
-                    onClick={() =>
-                      setSelectedAuction(auction._id)
-                    }
+                    onClick={() => setSelectedAuction(auction._id)}
                     className="w-full bg-white border-2 border-green-700 text-green-700 hover:bg-green-700 hover:text-white py-4 rounded-2xl font-semibold mt-3 flex justify-center items-center gap-2 transition-all duration-300"
                   >
                     <FaHistory />
                     View Bid History
                   </button>
-
                 </div>
-
               </div>
-
             </div>
-
           ))}
-
         </div>
-
       </div>
 
       {selectedAuction && (
@@ -305,7 +230,6 @@ function BuyerDashboard() {
           onClose={() => setSelectedAuction(null)}
         />
       )}
-
     </div>
   );
 }
