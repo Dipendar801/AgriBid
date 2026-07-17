@@ -13,16 +13,13 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await api.post("/auth/login", {
+      const response = await api.post("/api/auth/login", {
         email,
         password,
       });
 
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem(
-        "user",
-        JSON.stringify(response.data.data)
-      );
+      localStorage.setItem("user", JSON.stringify(response.data.data));
 
       if (response.data.data.role === "farmer") {
         navigate("/dashboard");
@@ -30,18 +27,13 @@ function Login() {
         navigate("/buyer-dashboard");
       }
     } catch (error) {
-      alert(
-        error.response?.data?.message ||
-          error.message ||
-          "Login Failed"
-      );
+      alert(error.response?.data?.message || error.message || "Login Failed");
     }
   };
 
   return (
     <div className="min-h-screen bg-green-700 flex justify-center items-center px-4">
       <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl p-10">
-
         <div className="flex justify-center mb-5">
           <div className="bg-green-100 p-5 rounded-full">
             <FaLeaf className="text-green-700" size={34} />
@@ -57,7 +49,6 @@ function Login() {
         </p>
 
         <form onSubmit={handleLogin} className="space-y-5">
-
           <div className="flex items-center border rounded-2xl px-4">
             <FaEnvelope className="text-gray-400" />
             <input
@@ -88,7 +79,6 @@ function Login() {
           >
             Login
           </button>
-
         </form>
 
         <p className="text-center mt-8 text-gray-600">
@@ -100,7 +90,6 @@ function Login() {
             Register
           </Link>
         </p>
-
       </div>
     </div>
   );
