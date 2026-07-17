@@ -15,7 +15,7 @@ function Dashboard() {
 
   const fetchMyCrops = async () => {
     try {
-      const res = await api.get("/crops/my-crops", {
+      const res = await api.get("/api/crops/my-crops", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -39,28 +39,21 @@ function Dashboard() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-
       <Navbar user={user} />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
-
         {/* Welcome Section */}
 
         <div className="mb-10">
-
           <h1 className="text-4xl font-bold text-gray-800">
             Welcome back,
-            <span className="text-green-700">
-              {" "}
-              {user?.fullName}
-            </span>
+            <span className="text-green-700"> {user?.fullName}</span>
           </h1>
 
           <p className="text-gray-500 mt-2 text-lg">
             Manage your crops, start auctions, and monitor your farming
             activities from one place.
           </p>
-
         </div>
 
         {/* Statistics */}
@@ -76,14 +69,9 @@ function Dashboard() {
         {/* Crop List */}
 
         <div className="mt-12">
-          <CropList
-            crops={crops}
-            fetchMyCrops={fetchMyCrops}
-          />
+          <CropList crops={crops} fetchMyCrops={fetchMyCrops} />
         </div>
-
       </div>
-
     </div>
   );
 }
