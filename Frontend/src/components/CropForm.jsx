@@ -21,7 +21,7 @@ function CropForm({ fetchMyCrops }) {
 
     try {
       await api.post(
-        "/api/crops/add",
+        "/crops/add",
         {
           cropName,
           quantity,
